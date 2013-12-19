@@ -1,12 +1,13 @@
-state Airport of
-    permission : set of Aircraft
-    landed     : set of Aircraft
-inv mk_Airport(p,l) == l subset p
-init a == a= mk_Airport({},{})
-end
+class Airport
+
+instance variables
+    permission : set of Aircraft := {};
+    landed     : set of Aircraft := {};
+    inv landed subset permission;
+
 
 types
-  Aircraft = token
+  Aircraft = nat
   
  functions  
     permitted: Aircraft * set of Aircraft -> bool
@@ -18,7 +19,7 @@ types
       a in set land;
       
     PreRecordLanding: Aircraft * set of Aircraft * set of Aircraft -> bool
-    PreRecordLanding(a,p,l) ==
+    PreRecordLanding(a,l,p) ==
       permitted(a,p) and not down(a,l)
 
   operations
@@ -28,13 +29,17 @@ types
         wr landed
     post permission = {} and landed = {};
     
-  --   Init2()
-  --  ext wr permission
-  --      wr landed
-  --   post mk_Airport({},{})=mk_Airport(permission , landed );
-
-	 test:() ==> ()
-	 test() == GivePermission(mk_token("kl"));
+	 test:() ==> set of Aircraft * set of Aircraft
+	 test() == let plane1 = 7 in
+	(	 
+		Init();
+		GivePermission(plane1);
+		RecordLanding(plane1);
+		RecordTakeOff(plane1);
+		let n = NumberWaiting()
+			in skip;
+		return mk_(permission,landed);
+	);
 	 
     GivePermission(a : Aircraft) 
     ext wr permission
@@ -59,3 +64,5 @@ types
     ext wr permission
         wr landed
     post card (permission \ landed) = r
+    
+end Airport
