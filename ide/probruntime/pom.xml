@@ -3,15 +3,15 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.overturetool.ide</groupId>
-		<artifactId>org.overture.ide.plugins</artifactId>
+		<groupId>org.overturetool.prob</groupId>
+		<artifactId>ide</artifactId>
 		<version>2.3.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<packaging>pom</packaging>
 
-	<groupId>org.overturetool.ide.plugins</groupId>
+	<groupId>org.overturetool.prob.ide.plugins</groupId>
 	<artifactId>org.overture.ide.plugins.probruntime</artifactId>
 	<name>Runtime for Prob</name>
 
